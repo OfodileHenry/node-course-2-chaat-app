@@ -14,6 +14,27 @@ socket.on("connect", function(){
 
 socket.on("newMessage",function(message){
   console.log("New User available",message)
+  var li = jQuery("<li></li>");
+  li.text(`${message.from}: ${message.text}`)
+
+  jQuery("#messages").append(li);
+})
+
+socket.emit("createMessage",{
+  from:"The Father of light -The client",
+  text:"How are you doing today Henry"
+},function(server_data){
+  console.log("Got it!", server_data)
+})
+
+jQuery("#message-form").on("submit",function(e){
+  e.preventDefault();
+  socket.emit("createMessage",{
+    from:"Henry",
+    text:jQuery("[name=message]").val()
+  },function(){
+
+  })
 })
 socket.on("disconnect",function(){
   console.log("Server has been disconnected!");

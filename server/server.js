@@ -5,7 +5,7 @@ var socketIO = require("socket.io");
 const publicPath = path.join(__dirname,'../public');
 const port = process.env.PORT || 3000;
 var app = express();
-const{generateMessage} = require("./utils/message")
+const{generateMessage,generateLocationMessage} = require("./utils/message")
 // var socket = io.connect('http://localhost:3000');
 var server = http.createServer(app);
 var io = socketIO(server);
@@ -34,6 +34,10 @@ socket.broadcast.emit("newMessage",generateMessage("Admin","New user just joined
    io.emit("newMessage",generateMessage(message.from,message.text))
    callback("This is from the server!")
  });
+
+ socket.on("createLocationMessage",(coords)=>{
+   io.emit("newLocationMessage",generateLocationMessage("Admin",coords.latitude,coords.longitude))
+ })
 
    // {
    //   from:message.from,

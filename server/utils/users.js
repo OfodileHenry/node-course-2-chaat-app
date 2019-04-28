@@ -26,7 +26,7 @@ class Users{
     // var user = this.users.filter((user)=>user.id === id)[0];
     var user = this.getUser(id);
     if(user){
-      this.users = this.users.filter((user)=>user.id !== id)
+      return this.users = this.users.filter((user)=>user.id !== id)
     }
   }
   getUser(id){

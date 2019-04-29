@@ -59,7 +59,7 @@ socket.on("join",(params,callback)=>{
  socket.on("createLocationMessage",(coords)=>{
    var user = users.getUser(socket.id)
    if (user){
-    io.to(user.room).emit("newLocationMessage",generateLocationMessage(user.name,coords.latitude,coords.longitude)) 
+    io.to(user.room).emit("newLocationMessage",generateLocationMessage(user.name,coords.latitude,coords.longitude))
    }
    i
  })
@@ -84,10 +84,10 @@ socket.on("join",(params,callback)=>{
     var user = users.removeUser(socket.id);
     if(user){
       io.to(user.room).emit("updateUserList",users.getUserList(user.room));
-      io.to(user.room).emit("newMessage",generateMessage("Admin",`${user.name} just left the  group`));
+      io.to(user.room).emit("newMessage",generateMessage("Admin",`${user.name} just left the ${user.room} group page`));
     }
   });
 });
-server.listen(3000, ()=>{
+server.listen(port, ()=>{
   console.log(`Server, now running up on port ${port}!`)
 });
